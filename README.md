@@ -36,6 +36,14 @@ md2web/md2web-vi-v1.1.html?https://example.com/file.md
 ### 3. Dùng offline
 Chỉnh sửa biến `MARKDOWN_URL` trong file HTML trỏ về file cục bộ.
 
+## Thông tin phiên bản
+
+v1.0: Chỉ xem markdown cơ bản
+
+v1.1: Bổ sung hiệu ứng và mục lục tự động
+
+v1.2: Bổ sung thêm markdown link qua url
+
 
 ## Giấy phép
 [GNU GPL v3](https://github.com/nguyenhhoa03/md2web/blob/main/LICENSE)
