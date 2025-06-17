@@ -38,5 +38,5 @@ Chỉnh sửa biến `MARKDOWN_URL` trong file HTML trỏ về file cục bộ.
 
 
 ## Giấy phép
-GNU GPL v3
+[GNU GPL v3](https://github.com/nguyenhhoa03/md2web/blob/main/LICENSE)
 
