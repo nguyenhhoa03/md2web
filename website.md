@@ -24,16 +24,9 @@ Simply add your Markdown file URL as a query parameter:
 https://marksite.free.nf/?url=YOUR_MARKDOWN_URL
 ```
 
-### Method 2: Direct URL
-You can also pass the URL directly after the domain:
-```
-https://marksite.free.nf/YOUR_MARKDOWN_URL
-```
-
 ### Example URLs
 ```
 https://marksite.free.nf/?url=https://raw.githubusercontent.com/user/repo/main/README.md
-https://marksite.free.nf/https://gist.githubusercontent.com/user/gist-id/raw/file.md
 ```
 
 ## 📋 Supported Features
