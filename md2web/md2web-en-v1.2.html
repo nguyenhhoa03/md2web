@@ -283,8 +283,11 @@
         /* Responsive padding */
         @media (max-width: 768px) {
             .markdown-body {
-                padding: 40px 30px 20px;
+                padding: 40px 20px 20px;
                 max-width: none;
+                overflow-x: auto;
+                word-wrap: break-word;
+                word-break: break-word;
             }
             
             .theme-toggle {
@@ -306,9 +309,16 @@
             }
 
             .toc-sidebar {
-                width: 250px;
-                padding: 60px 15px 15px;
+                width: 100%;
+                height: 100vh;
+                padding: 80px 20px 20px;
                 transform: translateX(-100%);
+                z-index: 1000;
+                position: fixed;
+                top: 0;
+                left: 0;
+                background: var(--bg-secondary);
+                backdrop-filter: blur(10px);
             }
 
             .toc-sidebar.show {
@@ -317,16 +327,31 @@
 
             .content-wrapper {
                 margin-left: 0;
+                padding: 0 10px;
             }
 
             .content-wrapper.menu-open {
-                margin-left: 250px;
+                margin-left: 0;
+            }
+
+            /* Overlay khi menu mở trên mobile */
+            .toc-sidebar.show::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                z-index: -1;
             }
         }
 
         @media (max-width: 480px) {
             .markdown-body {
-                padding: 30px 20px 15px;
+                padding: 30px 15px 15px;
+                font-size: 16px;
+                line-height: 1.6;
             }
             
             .theme-toggle {
@@ -344,22 +369,11 @@
             }
 
             .toc-sidebar {
-                width: 100%;
-                padding: 50px 15px 15px;
-                transform: translateX(-100%);
-            }
-
-            .toc-sidebar.show {
-                transform: translateX(0);
+                padding: 70px 15px 15px;
             }
 
             .content-wrapper {
-                margin-left: 0;
-                padding: 0 15px;
-            }
-
-            .content-wrapper.menu-open {
-                margin-left: 0;
+                padding: 0 5px;
             }
         }
 
@@ -485,6 +499,9 @@
             border: 1px solid var(--border-primary);
             box-shadow: 0 4px 12px var(--shadow-light);
             position: relative;
+            max-width: 100%;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
 
         .markdown-body pre::before {
@@ -671,6 +688,9 @@
             margin: 20px 0;
             line-height: 1.8;
             color: var(--text-primary);
+            word-wrap: break-word;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         /* HR styling */
@@ -828,8 +848,8 @@
         // CONFIGURATION: Get URL from query parameter or use default
         const getMarkdownURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const urlFromParam = urlParams.get('url') || window.location.search.substring(1);
-            return urlFromParam || 'https://raw.githubusercontent.com/nguyenhhoa03/simple-website/refs/heads/main/website-template-preview.md';
+            const urlFromParam = urlParams.get('url');
+            return urlFromParam || 'https://raw.githubusercontent.com/nguyenhhoa03/md2web/refs/heads/main/website.md';
         };
         const MARKDOWN_URL = getMarkdownURL();
 
@@ -974,6 +994,12 @@
                     a.addEventListener('click', (e) => {
                         e.preventDefault();
                         this.scrollToHeading(id);
+                        // Đóng menu trên mobile sau khi click
+                        if (window.innerWidth <= 768 && this.isVisible) {
+                            setTimeout(() => {
+                                this.toggle();
+                            }, 300);
+                        }
                     });
                     
                     li.appendChild(a);
@@ -1040,10 +1066,14 @@
                         sidebar.classList.add('show');
                         wrapper.classList.add('menu-open');
                         icon.textContent = '✖️';
+                        // Ngăn scroll body khi menu mở
+                        document.body.style.overflow = 'hidden';
                     } else {
                         sidebar.classList.remove('show');
                         wrapper.classList.remove('menu-open');
                         icon.textContent = '📋';
+                        // Khôi phục scroll body
+                        document.body.style.overflow = '';
                     }
                 }
             }
@@ -1106,11 +1136,18 @@
         async function loadMarkdown() {
             try {
                 console.log('Loading markdown from:', MARKDOWN_URL);
-                if (window.location.search) {
-                    console.log('URL obtained from query parameter');
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('url')) {
+                    console.log('URL obtained from ?url= parameter');
                 }
                 
-                const response = await fetch(MARKDOWN_URL);
+                const response = await fetch(MARKDOWN_URL, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'text/plain, text/markdown, */*'
+                    },
+                    mode: 'cors'
+                });
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
