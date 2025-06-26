@@ -892,7 +892,11 @@
         const getMarkdownURL = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const urlFromParam = urlParams.get('url');
-            return urlFromParam || 'https://raw.githubusercontent.com/nguyenhhoa03/md2web/refs/heads/main/website.md';
+            // Only use URL parameter if it exists and is not empty
+            if (urlFromParam && urlFromParam.trim() !== '') {
+                return urlFromParam;
+            }
+            return 'https://raw.githubusercontent.com/nguyenhhoa03/md2web/refs/heads/main/website.md';
         };
         const MARKDOWN_URL = getMarkdownURL();
 
@@ -1273,8 +1277,11 @@
             try {
                 console.log('Loading markdown from:', MARKDOWN_URL);
                 const urlParams = new URLSearchParams(window.location.search);
-                if (urlParams.get('url')) {
+                const urlFromParam = urlParams.get('url');
+                if (urlFromParam && urlFromParam.trim() !== '') {
                     console.log('URL obtained from ?url= parameter');
+                } else {
+                    console.log('Using default URL (no valid ?url= parameter found)');
                 }
                 
                 const response = await fetch(MARKDOWN_URL, {
