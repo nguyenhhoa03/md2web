@@ -173,9 +173,9 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 | Version | Release Date | Key Features |
 |---------|-------------|--------------|
 | **v1.3** | IDK | Add code copy button |
-| **v1.2** | Current | 🔗 URL parameter support, Mobile improvements |
-| **v1.1** | Previous | 📋 Auto table of contents |
-| **v1.0** | Initial | 📄 Basic markdown viewing, 🌙 Theme support |
+| **v1.2** | IDK | 🔗 URL parameter support, Mobile improvements |
+| **v1.1** | IDK | 📋 Auto table of contents |
+| **v1.0** | IDK | 📄 Basic markdown viewing, 🌙 Theme support |
 
 ## 🆘 Support
 
