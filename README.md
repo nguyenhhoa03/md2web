@@ -49,29 +49,22 @@ https://marksite.free.nf/?url=https://example.com/documentation.md
 
 ### Option 1: Direct Download
 
-1. Download the `index.html` file
-2. Upload to your web hosting service
-3. Access via your domain
+1. Download the `md2web-en-v?.html` file
+2. Change `https://raw.githubusercontent.com/nguyenhhoa03/md2web/refs/heads/main/website.md` to your markdown url.
+3. Upload to your web hosting service
+4. Access via your domain
 
 ### Option 2: Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/marksite.git
+git clone https://github.com/nguyenhhoa03/marksite
 cd marksite
 # Upload index.html to your hosting service
 ```
 
 ### Option 3: Local Development
 
-```bash
-# Serve locally with Python
-python -m http.server 8000
-
-# Or with Node.js
-npx http-server
-
-# Then visit http://localhost:8000
-```
+You can host md2web by Flask,...
 
 ## ⚙️ Configuration
 
@@ -79,10 +72,10 @@ The application automatically detects the best configuration, but you can custom
 
 ### Default Markdown URL
 
-Edit line 674 in `index.html`:
+Edit in `index.html`:
 
 ```javascript
-return urlFromParam || 'https://raw.githubusercontent.com/your-repo/main/your-file.md';
+https://raw.githubusercontent.com/nguyenhhoa03/md2web/refs/heads/main/website.md
 ```
 
 ### Theme Settings
