@@ -504,16 +504,25 @@
             word-wrap: break-word;
         }
 
-        .markdown-body pre::before {
-            content: '';
+        .markdown-body pre[data-language] {
+            padding-top: 50px;
+        }
+
+        .markdown-body pre[data-language]::after {
+            content: attr(data-language);
             position: absolute;
-            top: 15px;
+            top: 12px;
             left: 15px;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: var(--text-danger);
-            box-shadow: 20px 0 0 #fbbf24, 40px 0 0 #10b981;
+            background: var(--text-accent);
+            color: var(--bg-primary);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            z-index: 2;
         }
 
         .markdown-body pre code {
@@ -562,6 +571,11 @@
             background: #10b981;
             color: white;
             border-color: #10b981;
+        }
+
+        .markdown-body pre[data-language] .copy-button {
+            top: 12px;
+            right: 15px;
         }
 
         .copy-button .copy-icon {
@@ -1189,6 +1203,15 @@
             preElements.forEach((pre, index) => {
                 const codeElement = pre.querySelector('code');
                 if (codeElement) {
+                    // Detect language from class name
+                    let language = '';
+                    const codeClasses = codeElement.className;
+                    const languageMatch = codeClasses.match(/language-(\w+)/);
+                    if (languageMatch) {
+                        language = languageMatch[1];
+                        pre.setAttribute('data-language', language);
+                    }
+                    
                     // Create wrapper
                     const wrapper = document.createElement('div');
                     wrapper.className = 'code-block-wrapper';
