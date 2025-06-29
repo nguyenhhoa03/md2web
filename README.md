@@ -184,9 +184,8 @@ If you encounter any issues or have questions:
 MarkSite works with any static hosting service:
 
 - **GitHub Pages**: Free hosting for GitHub repositories
-- **Netlify**: Easy deployment with continuous integration
+- **Infinityfree**: Free hosting I use for this project
 - **Vercel**: Fast global CDN
-- **Firebase Hosting**: Google's hosting platform
 - **Any static hosting**: Upload `index.html` and go!
 
 ## 📚 Markdown Support
